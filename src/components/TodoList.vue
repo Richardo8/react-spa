@@ -55,9 +55,9 @@
         name: 'Molunerfinn',
         todos: '',
         activeName: 'first',
-        list:[],
+        list: [],
         count: 0
-      };
+      }
     },
     computed: { // 计算属性用于计算是否已经完成了所有任务
       Done(){
@@ -108,7 +108,7 @@
         })
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
