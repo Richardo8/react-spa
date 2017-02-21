@@ -32,7 +32,7 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   .el-row.content
     padding 16px
   .title
