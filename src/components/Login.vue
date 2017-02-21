@@ -13,9 +13,10 @@
         <el-input
           v-model="password"
           placeholder="密码"
-          type="password">
+          type="password"
+          @keyup.enter.native="loginToDo">
         </el-input>
-        <el-button type="primary">登录</el-button>
+        <el-button type="primary" @click="loginToDo">登录</el-button>
       </el-row>
     </el-col>
   </el-row>
@@ -28,6 +29,11 @@
         account: '',
         password: ''
       }
+    },
+    methods: {
+        loginToDo(){
+            this.$router.push('/todolist')
+        }
     }
   }
 </script>
