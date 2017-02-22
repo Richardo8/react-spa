@@ -21,7 +21,7 @@ class User {
       name: this.name,
       password: this.password
     }
-    userModel.create(data, function (err) {
+    userModel.create(data, (err) => {
       if(err){
         console.log(err)
       }else{
