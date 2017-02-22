@@ -29,6 +29,26 @@ class User {
       }
     })
   }
+
+  login(){
+    let data = {
+      name: this.name,
+      password: this.password
+    };
+    (async () => {
+      let backData = await userModel.findOne({'name': data.name});
+    })();
+    //如何将backData返回？？？？？
+    //使用async await实现数据查询
+    // userModel.findOne({'name': data.name}, function (err, data) {
+    //   if(err){
+    //     console.log(err);
+    //   }else{
+    //     console.log(data);
+    //     callback(null, data);
+    //   }
+    // })
+  }
 }
 
 module.exports = User;

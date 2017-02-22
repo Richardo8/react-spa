@@ -1,5 +1,12 @@
 let User = require('../models/users');
 
 let user = new User("liu1", "123456");
-console.log(user.save);
-user.save();
+// user.login();
+// console.log(user.login());
+
+(async () => {
+  let backData = await user.login();
+  console.log(backData);
+})()
+
+
