@@ -14,6 +14,8 @@ class User {
     console.log('我的名字叫'+this.name);
   }
 
+
+  //实现将数据存储到数据库中
   save(){
     let data = {
       name: this.name,
