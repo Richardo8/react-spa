@@ -20,6 +20,9 @@
 
 将连接数据库的代码写在config文件夹中，exports一个db，在schema文件夹中新建各类schema，并引入test，实现分离。
 
+# MVC
+
+controllers文件夹中主要存放实现功能的代码，也就是逻辑层，models中存放的是模型，其中各个模型使用ES6的class代替构造函数，使用exports将接口放出，实现数据传输。
 
 ## 一. 名词解释
 
