@@ -1,15 +1,10 @@
 let User = require('../models/users');
 
-let user = new User("liu1", "123456");
 
-async function getUserInfo(){
-  let backData = await user.login();
-  console.log(backData);
-  if(backData.password == user.password){
-    console.log('成功');
-  }
+async function getUserInfo(name){
+  let user = new User();
+  return await user.login(name);
 }
-
 
 // module.exports = getUserInfo;
 module.exports = getUserInfo;

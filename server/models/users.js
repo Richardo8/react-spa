@@ -30,13 +30,13 @@ class User {
     })
   }
 
-  login(){
-    let data = {
-      name: this.name,
-      password: this.password
-    };
+  login(name){
+    // let data = {
+    //   name: this.name,
+    //   password: this.password
+    // };
     return async function get() {
-      return await userModel.findOne({'name': data.name});
+      return await userModel.findOne({'name': name});
     }();
     // return (async () => {
     //   return await userModel.findOne({'name': data.name});
