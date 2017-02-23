@@ -21,3 +21,16 @@
     app.use(auth.routes());
 
 如上，app.use(auth.routes())加载路由文件即可。
+
+## 如何通过冒号方式查询数据
+
+在路由文件中：
+
+    router.get('/user/:name', async (ctx, next) => {
+      let name = ctx.params.name;
+      ctx.body = await getUserInfo(name);
+      await next();
+    });
+
+
+使用ctx.params即可获取很多数据，进而使用ctx.body返回数据
