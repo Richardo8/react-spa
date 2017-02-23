@@ -7,6 +7,7 @@ let user = new User("liu1", "123456");
 (async () => {
   let backData = await user.login();
   console.log(backData);
+  // console.log(backData);
 })()
 
 

@@ -35,19 +35,15 @@ class User {
       name: this.name,
       password: this.password
     };
-    (async () => {
-      let backData = await userModel.findOne({'name': data.name});
-    })();
-    //如何将backData返回？？？？？
-    //使用async await实现数据查询
-    // userModel.findOne({'name': data.name}, function (err, data) {
-    //   if(err){
-    //     console.log(err);
-    //   }else{
-    //     console.log(data);
-    //     callback(null, data);
-    //   }
-    // })
+    return async function get() {
+      return await userModel.findOne({'name': data.name});
+    }();
+    // return (async () => {
+    //   return await userModel.findOne({'name': data.name});
+    // })();
+    /*
+    * 使用async返回数据。
+    * 不想在model中设计逻辑判断的话，需要将数据返回到controller中，所以需要将获得的数据return，以上两种写法均可。至此，不需要回调函数。*/
   }
 }
 
