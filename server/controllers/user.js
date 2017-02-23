@@ -6,7 +6,6 @@ async function getUserInfo(name){
   return await user.login(name);
 }
 
-// module.exports = getUserInfo;
 module.exports = getUserInfo;
 
 
