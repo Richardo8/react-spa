@@ -7,6 +7,11 @@ async function getUserInfo(name){
   return await User.login(name);
 }
 
+async function postUserInfo() {
+  let userData =  getUserInfo()
+
+}
+
 module.exports = getUserInfo;
 
 
