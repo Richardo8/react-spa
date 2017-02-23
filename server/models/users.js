@@ -43,7 +43,8 @@ class User {
     // })();
     /*
     * 使用async返回数据。
-    * 不想在model中设计逻辑判断的话，需要将数据返回到controller中，所以需要将获得的数据return，以上两种写法均可。至此，不需要回调函数。*/
+    * 不想在model中设计逻辑判断的话，需要将数据返回到controller中，所以需要将获得的数据return，以上两种写法均可。至此，不需要回调函数。
+    * node中运行时别忘了加 --harmony-async-await*/
   }
 }
 
