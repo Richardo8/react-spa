@@ -40,7 +40,8 @@
               .then((res) => {
                 console.log(res);
                 if(res.data.status == '1'){
-                    this.$router.push('/todolist')
+                    this.$router.push('/todolist');
+                    this.$message.success('登录成功');
                 }else{
                     console.log(res.data.info);
                     this.$message.error(res.data.info);
