@@ -48,7 +48,8 @@ class User {
   // }
 
   static async login(name){
-      return await userModel.findOne({'name': name});
+    return await userModel.findOne({'name': name});
+    //如果未查询到结果返回的值是未定义的，此时if（）判断一下就可以了
   }
   /*
   * 类的静态方法只有类可以调用，所以在models中的user.js不需要实例化

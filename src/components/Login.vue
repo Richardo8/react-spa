@@ -22,7 +22,7 @@
   </el-row>
 </template>
 
-<script type="text/javascript">
+<script type="es6">
   export default {
     data () {
       return {
@@ -40,12 +40,12 @@
               .then((res) => {
                 console.log(res);
                 if(res.data.status == '1'){
-                    console.log('登陆成功')
+                    this.$router.push('/todolist')
                 }else{
-                    console.log('登录失败')
+                    console.log(res.data.info)
                 }
             })
-            this.$router.push('/todolist')
+
         }
     }
   }

@@ -13,7 +13,8 @@ app.use(async (ctx, next) => {
   let start = new Date;
   await next();
   let ms = new Date - start;
-  console.log('%s %s - %s', this.method, this.url, ms); // 显示执行的时间
+  console.log('%s %s - %s', ctx.req.method, ctx.req.url, ms); // 显示执行的时间
+  // koa2中已经完全使用ctx，即上下文，读取数据从ctx中获取。
 });
 
 app.on('error', function(err, ctx){

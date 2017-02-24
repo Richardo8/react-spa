@@ -8,7 +8,6 @@ router.get('/user/:name', async (ctx, next) => {
 });
 
 router.post('/user', async (ctx, next) => {
-  console.log(ctx.request)
   ctx.body = await UserCont.postUserInfo(ctx);
   await next();
 })
