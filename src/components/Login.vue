@@ -43,14 +43,18 @@
               .then((res) => {
                 console.log(res);
                 if(res.data.status == '1'){
+                    sessionStorage.setItem('token', res.data.token);
+                    //如果登陆成功，则将数据中的token放入Session Storage
                     this.$router.push('/todolist');
                     this.$message.success('登录成功');
                 }else{
                     console.log(res.data.info);
                     this.$message.error(res.data.info);
+                    sessionStorage.setItem('token', null);
                 }
             }, (err) => {
                 this.$message.error('请求错误');
+                sessionStorage.setItem('token', null);
               })
 
         }

@@ -1,4 +1,5 @@
 let User = require('../models/users');
+let jwt = require('koa-jwt');
 
 
 async function getUserInfo(name){
@@ -17,8 +18,15 @@ async function postUserInfo(data) {
       }
     }else{
       if(data.request.body.password == userData.password){
+        // 使用jwt对token进行简单加密
+        let userToken = {
+          mame: userData.name
+        }
+        let secret = 'united'
+        let token = jwt.sign(userToken, secret)
         return obj = {
           status: 1,
+          token: token,
           info: '登录成功'
         }
       }else{
