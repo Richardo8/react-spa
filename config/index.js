@@ -33,6 +33,7 @@ module.exports = {
         changeOrigin: true
       }
     },
+    // 在此添加代理，实现跨域请求
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
