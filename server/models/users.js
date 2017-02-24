@@ -48,7 +48,12 @@ class User {
   // }
 
   static async login(name){
-    return await userModel.findOne({'name': name});
+    try {
+      return await userModel.findOne({'name': name});
+    }catch(err){
+      console.log('error: ' + err);
+      return err;
+    }
     //如果未查询到结果返回的值是未定义的，此时if（）判断一下就可以了
   }
   /*

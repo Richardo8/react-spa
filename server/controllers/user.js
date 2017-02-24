@@ -10,15 +10,22 @@ async function getUserInfo(name){
 async function postUserInfo(data) {
   let userData = await getUserInfo(data.request.body.name);
   if(userData){
-    if(data.request.body.password == userData.password){
-      return obj = {
-        status: 1,
-        info: '登录成功'
-      }
-    }else{
+    if(userData instanceof Error){
       return obj = {
         status: 0,
-        info: '密码错误'
+        info: '服务器错误'
+      }
+    }else{
+      if(data.request.body.password == userData.password){
+        return obj = {
+          status: 1,
+          info: '登录成功'
+        }
+      }else{
+        return obj = {
+          status: 0,
+          info: '密码错误'
+        }
       }
     }
   }else{
