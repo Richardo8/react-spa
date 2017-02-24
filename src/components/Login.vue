@@ -23,6 +23,8 @@
 </template>
 
 <script type="es6">
+  import md5 from 'md5'
+
   export default {
     data () {
       return {
@@ -34,8 +36,9 @@
         loginToDo(){
             let obj = {
                 name: this.account,
-                password: this.password
+                password: md5(this.password)
             }
+            // 增加MD5加密，但是加密实际并不安全，在js中加密很容易被人获取到，MD5算法并非不可逆算法
             this.$http.post('/user', obj)
               .then((res) => {
                 console.log(res);
