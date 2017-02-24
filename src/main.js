@@ -37,17 +37,18 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('token');
   if(to.path == '/'){
-    if(token != null){
+    if(token != null && token != 'null'){
       next('/todolist')
     }
     next();
   }else{
-    if(token != null){
+    if(token != null && token != 'null'){
       next()
     }else{
       next('/');
     }
   }
+  // 一定要加 && token != 'null'
 })
 
 /* eslint-disable no-new */

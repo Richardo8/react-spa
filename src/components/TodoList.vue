@@ -49,10 +49,22 @@
 </template>
 
 <script>
+  import jwt from 'jsonwebtoken'
+
   export default {
+
+    created(){
+      const userInfo = this.getUserInfo();
+      if(userInfo != null){
+          this.name = userInfo.name;
+      }else{
+          this.name = ''
+      }
+    },
+
     data () {
       return {
-        name: 'Molunerfinn',
+        name: '',
         todos: '',
         activeName: 'first',
         list: [],
@@ -106,6 +118,14 @@
           type: 'info',
           message: '任务还原'
         })
+      },
+      getUserInfo(){
+          const token = sessionStorage.getItem('token');
+          if(token != null && token != 'null'){
+            return jwt.verify(token, 'united');
+          }else{
+              return null;
+          }
       }
     }
   }

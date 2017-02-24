@@ -41,7 +41,6 @@
             // 增加MD5加密，但是加密实际并不安全，在js中加密很容易被人获取到，MD5算法并非不可逆算法
             this.$http.post('/user', obj)
               .then((res) => {
-                console.log(res);
                 if(res.data.status == '1'){
                     sessionStorage.setItem('token', res.data.token);
                     //如果登陆成功，则将数据中的token放入Session Storage
