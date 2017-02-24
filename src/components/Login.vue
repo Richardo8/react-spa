@@ -22,7 +22,7 @@
   </el-row>
 </template>
 
-<script>
+<script type="text/javascript">
   export default {
     data () {
       return {
@@ -32,6 +32,19 @@
     },
     methods: {
         loginToDo(){
+            let obj = {
+                name: this.account,
+                password: this.password
+            }
+            this.$http.post('/user', obj)
+              .then((res) => {
+                console.log(res);
+                if(res.data.status == '1'){
+                    console.log('登陆成功')
+                }else{
+                    console.log('登录失败')
+                }
+            })
             this.$router.push('/todolist')
         }
     }

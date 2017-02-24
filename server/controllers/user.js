@@ -7,11 +7,25 @@ async function getUserInfo(name){
   return await User.login(name);
 }
 
-async function postUserInfo() {
-  let userData =  getUserInfo()
-
+async function postUserInfo(data) {
+  let userData = await getUserInfo(data.request.body.name);
+  console.log(userData);
+  if(data.request.body.password == userData.password){
+    return obj = {
+      status: 1,
+      info: 'success'
+    }
+  }else{
+    return obj = {
+      status: 0,
+      info: 'failed'
+    }
+  }
 }
 
-module.exports = getUserInfo;
+module.exports = {
+  getUserInfo,
+  postUserInfo
+}
 
 
