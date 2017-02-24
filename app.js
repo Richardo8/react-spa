@@ -23,10 +23,6 @@ app.on('error', function(err, ctx){
 
 app.use(auth.routes());
 
-// koa.use('/auth', auth.routes());
-
-// app.use(koa.routes());
-
 app.listen(8889,() => {
   console.log('Koa is listening in 8889');
 });

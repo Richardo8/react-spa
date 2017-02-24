@@ -42,9 +42,12 @@
                 if(res.data.status == '1'){
                     this.$router.push('/todolist')
                 }else{
-                    console.log(res.data.info)
+                    console.log(res.data.info);
+                    this.$message.error(res.data.info);
                 }
-            })
+            }, (err) => {
+                this.$message.error('请求错误');
+              })
 
         }
     }
