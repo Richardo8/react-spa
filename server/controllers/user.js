@@ -20,7 +20,7 @@ async function postUserInfo(data) {
       if(data.request.body.password == userData.password){
         // 使用jwt对token进行简单加密
         let userToken = {
-          mame: userData.name
+          name: userData.name
         }
         let secret = 'united'
         let token = jwt.sign(userToken, secret)

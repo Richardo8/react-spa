@@ -48,18 +48,21 @@
   </el-row>
 </template>
 
-<script>
+<script style="es6">
   import jwt from 'jsonwebtoken'
 
   export default {
 
-    created(){
-      const userInfo = this.getUserInfo();
-      if(userInfo != null){
+    mounted(){
+      this.$nextTick(() => {
+        const userInfo = this.getUserInfo();
+        if(userInfo != null){
           this.name = userInfo.name;
-      }else{
+        }else{
           this.name = ''
-      }
+        }
+      })
+
     },
 
     data () {
