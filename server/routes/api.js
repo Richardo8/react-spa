@@ -12,4 +12,4 @@ router.post('/todolist', async(ctx, next) => {
   await next();
 })
 
-model.exports = router;
+module.exports = router;

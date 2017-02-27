@@ -1,6 +1,7 @@
 let db = require('../config/db'),
-  todoListSchema = require('../schema/todoList'),
-  todoListModel = db.model('Todo', todoListSchema);
+  todoListSchema = require('../schema/todoList');
+
+let todoListModel = db.model('Todo', todoListSchema);
 
 class Todo{
   constructor(username, content, status){
@@ -31,7 +32,7 @@ class Todo{
   }
 }
 
-model.exports = Todo;
+module.exports = Todo;
 
 
 

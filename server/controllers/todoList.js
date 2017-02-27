@@ -27,7 +27,7 @@ async function createTodoList(data) {
   }
 }
 
-models.exports = {
+module.exports = {
   getTodoList,
   createTodoList
 }

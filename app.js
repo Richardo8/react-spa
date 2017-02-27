@@ -3,7 +3,9 @@ const App = require('koa'),
   koa = require('koa-router')(),
   json = require('koa-json'),
   logger = require('koa-logger'), // 引入各种依赖
-  auth = require('./server/routes/auth.js');
+  jwt = require('koa-jwt'),
+  auth = require('./server/routes/auth.js'),
+  api = require('./server/routes/api.js');
 
 app.use(require('koa-bodyparser')());
 app.use(json());
@@ -17,11 +19,29 @@ app.use(async (ctx, next) => {
   // koa2中已经完全使用ctx，即上下文，读取数据从ctx中获取。
 });
 
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch(err) {
+    if(401 == err.status){
+      ctx.status = 401;
+      ctx.body = {
+        status: 0,
+        token: null,
+        info: 'Protected resource, use Authorization header to get access'
+      };
+    }else{
+      throw err;
+    }
+  }
+})
+
 app.on('error', function(err, ctx){
   console.log('server error', err);
 });
 
 app.use(auth.routes());
+app.use(jwt({secret: 'united'}), api.routes());
 
 app.listen(8889,() => {
   console.log('Koa is listening in 8889');
