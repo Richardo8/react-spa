@@ -61,6 +61,7 @@
         }else{
           this.name = ''
         }
+        this.getTodoList(this.name);
       })
 
     },
@@ -129,6 +130,45 @@
           }else{
               return null;
           }
+      },
+      addTodos(){
+          if(this.todos == ''){
+            return false;
+          }
+          let obj = {
+            status: 0,
+            content: this.todos,
+            name: this.name
+          }
+          this.$http.post('todolist', obj)
+            .then((res) => {
+              if(res.status == 200){ // 当返回的状态为200成功时
+                this.$message({
+                  type: 'success',
+                  message: '创建成功！'
+                })
+                this.getTodolist(); // 获得最新的todolist
+              }else{
+                this.$message.error('创建失败！') // 当返回不是200说明处理出问题
+              }
+            }, (err) => {
+              this.$message.error('创建失败！') // 当没有返回值说明服务端错误或者请求没发送出去
+              console.log(err)
+            })
+          this.todos = '';
+      },
+      getTodoList(){
+          this.$http.get('/todolist/' + this.name)
+            .then((res) => {
+              if(res.status == 200){
+                  this.list = res.data
+              } else{
+                  this.$message.error('获取失败')
+              }
+            }, (err) => {
+              this.$message.error('获取失败');
+              console.log(err);
+            })
       }
     }
   }

@@ -41,7 +41,8 @@ app.on('error', function(err, ctx){
 });
 
 app.use(auth.routes());
-app.use(jwt({secret: 'united'}), api.routes());
+app.use(api.routes());
+//jwt({secret: 'united'}),
 
 app.listen(8889,() => {
   console.log('Koa is listening in 8889');

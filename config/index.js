@@ -31,6 +31,10 @@ module.exports = {
       '/user': {
         target: 'http://localhost:8889',
         changeOrigin: true
+      },
+      '/todolist': {
+        target: 'http://localhost:8889',
+        changeOrigin: true
       }
     },
     // 在此添加代理，实现跨域请求
