@@ -20,9 +20,9 @@ class Todo{
   static async createTodoList(data){
     try{
       let saveData = {
-        'username': data.name,
-        'content': data.content,
-        'status': data.status
+        username: data.name,
+        content: data.content,
+        status: data.status
       }
       return await todoListModel.create(saveData)
     }catch (err){
