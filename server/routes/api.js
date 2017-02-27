@@ -1,0 +1,15 @@
+let TodoCont = require('../controllers/todoList'),
+  router = require('koa-router')();
+
+router.get('/todolist/:name', async (ctx, next) => {
+  let name = ctx.params.name;
+  ctx.body = await TodoCont.getTodoList(name);
+  await next();
+})
+
+router.post('/todolist', async(ctx, next) => {
+  ctx.body = await todoCont.createTodoList(ctx);
+  await next();
+})
+
+model.exports = router;
