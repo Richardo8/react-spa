@@ -147,7 +147,7 @@
                   type: 'success',
                   message: '创建成功！'
                 })
-                this.getTodolist(); // 获得最新的todolist
+                this.getTodoList(); // 获得最新的todolist
               }else{
                 this.$message.error('创建失败！') // 当返回不是200说明处理出问题
               }
