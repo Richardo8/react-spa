@@ -20,7 +20,6 @@ router.post('/todolist', async(ctx, next) => {
 
 //post post下使用ctx.request.body获取从前端传输过的数据，get则使用ctx.params获取路径中正则表达式的内容，如上所示的路径中的content和status
 router.post('/todolist/update', async(ctx, next) => {
-  console.log(ctx.request.body);
   ctx.body = await TodoCont.updateTodoList(ctx.request.body);
   await next();
 })
