@@ -27,7 +27,39 @@ async function createTodoList(data) {
   }
 }
 
+async function updateTodoList(data) {
+  let result = await TodoList.updateTodoList(data);
+  if(result instanceof Error){
+    return {
+      status: 0,
+      info: '服务器错误'
+    }
+  }else{
+    return {
+      status: 1,
+      info: '更新成功'
+    }
+  }
+}
+
+async function removeTodo(content) {
+  let result = await TodoList.removeTodo(content);
+  if(result instanceof Error){
+    return {
+      status: 0,
+      info: '服务器错误'
+    }
+  }else{
+    return {
+      status: 1,
+      info: '删除成功'
+    }
+  }
+}
+
 module.exports = {
   getTodoList,
-  createTodoList
+  createTodoList,
+  updateTodoList,
+  removeTodo
 }

@@ -30,6 +30,28 @@ class Todo{
       return err;
     }
   }
+
+  static async updateTodoList(data){
+    try{
+      let checkData = {
+        content: data.content
+      }
+      return await todoListModel.update(checkData, {$set: {status: data.status == '1' ? '0' : '1'}})
+    }catch(err){
+      return err;
+    }
+  }
+
+  static async removeTodo(content){
+    try{
+      let checkData = {
+        content: content
+      }
+      return await todoListModel.remove(checkData)
+    }catch(err){
+      return err;
+    }
+  }
 }
 
 module.exports = Todo;
