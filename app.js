@@ -4,12 +4,14 @@ const App = require('koa'),
   json = require('koa-json'),
   logger = require('koa-logger'), // 引入各种依赖
   jwt = require('koa-jwt'),
-  auth = require('./server/routes/auth.js'),
-  api = require('./server/routes/api.js');
+  historyApiFallBack = require('koa-history-api-fallback');
 
 app.use(require('koa-bodyparser')());
 app.use(json());
 app.use(logger());
+
+const auth = require('./server/routes/auth.js'),
+  api = require('./server/routes/api.js');
 
 app.use(async (ctx, next) => {
   let start = new Date;
@@ -43,6 +45,9 @@ app.on('error', function(err, ctx){
 app.use(auth.routes());
 app.use(api.routes());
 //jwt({secret: 'united'}),
+
+app.use(historyApiFallBack())
+
 
 app.listen(8889,() => {
   console.log('Koa is listening in 8889');
