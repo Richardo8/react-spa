@@ -15,8 +15,8 @@
                     {{ index + 1 }}. {{ item.content }}
                   </span>
                   <span class="pull-right">
-                    <el-button size="small" type="primary" @click="finished(index)">完成</el-button>
-                    <el-button size="small" :plain="true" type="danger" @click="remove(index)">删除</el-button>
+                    <el-button size="small" type="primary" @click="update(item.content, item.status)">完成</el-button>
+                    <el-button size="small" :plain="true" type="danger" @click="remove(item.content)">删除</el-button>
                   </span>
                 </div>
               </template>
@@ -34,7 +34,7 @@
                   {{ index + 1 }}. {{ item.content }}
                 </span>
                 <span class="pull-right">
-                  <el-button size="small" type="primary" @click="restore(index)">还原</el-button>
+                  <el-button size="small" type="primary" @click="update(item.content, item.status)">还原</el-button>
                 </span>
               </div>
             </template>
@@ -168,6 +168,40 @@
             }, (err) => {
               this.$message.error('获取失败');
               console.log(err);
+            })
+      },
+      update(content, status){
+          let obj = {
+              content: content,
+              status: status
+          }
+          this.$http.post('/todolist/update', obj)
+            .then((res) => {
+              if(res.status == 200){
+                  this.$message.success('更新成功')
+                  this.getTodoList();
+              }else{
+                  this.$message.error('更新失败')
+              }
+            }, (err) => {
+              this.$message.error('服务器错误')
+              console.log(err)
+            })
+      },
+      remove(content){
+          let obj = {
+              content: content
+          }
+          this.$http.post('/todolist/remove', obj)
+            .then((res) => {
+              if(res.status == 200){
+                  this.$message.success('删除成功')
+                  this.getTodoList()
+              }else{
+                  this.$message('删除失败')
+              }
+            }, (err) => {
+              this.$message.error(err);
             })
       }
     }
