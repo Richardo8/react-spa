@@ -4,6 +4,8 @@ const App = require('koa'),
   json = require('koa-json'),
   logger = require('koa-logger'), // 引入各种依赖
   jwt = require('koa-jwt'),
+  path = require('path'),
+  server = require('koa-static'),
   historyApiFallBack = require('koa-history-api-fallback');
 
 app.use(require('koa-bodyparser')());
@@ -46,7 +48,12 @@ app.use(auth.routes());
 app.use(api.routes());
 //jwt({secret: 'united'}),
 
-app.use(historyApiFallBack())
+app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
+
+app.use(server(path.resolve('dist')))
+
+
+
 
 
 app.listen(8889,() => {
