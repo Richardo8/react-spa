@@ -142,6 +142,7 @@
           }
           this.$http.post('todolist', obj)
             .then((res) => {
+              console.log(res);
               if(res.status == 200){ // 当返回的状态为200成功时
                 this.$message({
                   type: 'success',
