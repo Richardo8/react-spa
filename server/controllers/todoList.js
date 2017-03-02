@@ -12,6 +12,18 @@ async function getTodoList(name) {
   }
 }
 
+async function getTen(name) {
+  let result = await TodoList.getTenTodoListByName(name);
+  if(result instanceof Error){
+    return {
+      status: 0,
+      info: '服务器错误'
+    }
+  }else{
+    return result;
+  }
+}
+
 async function createTodoList(data) {
   let result = await TodoList.createTodoList(data);
   if(result instanceof Error){
@@ -59,6 +71,7 @@ async function removeTodo(content) {
 
 module.exports = {
   getTodoList,
+  getTen,
   createTodoList,
   updateTodoList,
   removeTodo

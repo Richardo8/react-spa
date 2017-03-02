@@ -48,7 +48,7 @@ app.use(auth.routes());
 app.use(api.routes());
 //jwt({secret: 'united'}),
 
-app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
+// app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
 
 app.use(server(path.resolve('dist')))
 
