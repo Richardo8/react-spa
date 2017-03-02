@@ -126,7 +126,7 @@
       getUserInfo(){
           const token = sessionStorage.getItem('token');
           if(token != null && token != 'null'){
-            return jwt.verify(token, 'united');
+            return jwt.verify(token, 'united');//token的加密在此处可以看到
           }else{
               return null;
           }
