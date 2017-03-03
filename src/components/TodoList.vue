@@ -158,18 +158,44 @@
             })
           this.todos = '';
       },
-      getTodoList(){
-          this.$http.get('/todolist/' + this.name)
-            .then((res) => {
-              if(res.status == 200){
-                  this.list = res.data
-              } else{
-                  this.$message.error('获取失败')
-              }
-            }, (err) => {
-              this.$message.error('获取失败');
-              console.log(err);
-            })
+      async getTodoList(){
+//          this.$http.get('/todolist/ten/' + this.name)
+//            .then((res) => {
+//              console.log(res)
+//              if(res.status == 200){
+//                  this.list = res.data
+//              } else{
+//                  this.$message.error('获取失败')
+//              }
+//            }, (err) => {
+//              this.$message.error('获取失败');
+//              console.log(err);
+//            })
+        let name = this.name;
+        try {
+          let response = await fetch('/todolist/ten/' + name);
+          let eventData = await response.json();
+          if(eventData.status == '0'){
+              this.$message.error(eventData.info);
+          }else{
+              this.list = eventData;
+          }
+//          if(response.status == '200'){
+//            let eventData = await response.json();
+//            console.log(eventData);
+//            this.list = eventData
+//          } else {
+//            this.$message.error('服务器错误, 错误信息：' + response.statusText)
+//          }
+        } catch(err) {
+          console.log("Oops, error", err);
+          this.$message.error('服务器错误， 错误信息：' + err)
+        }
+        //vue也可以将方法写成async形式，这样就可以在获取数据之后直接放入当前this中的内容里
+        //fetch可以代替axios进行数据交互，相对来说更清楚一些
+        //服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。
+        //await response.json()如果返回的对象是reject的话，该方法会被catch，显示错误，如果是resolve则正常显示
+        //由于返回的对象是reject就会被catch到错误，所以可以先.json(),然后根据json化后的数据中的参数进行判断，这样可以自定义错误，如果数据库查询出现错误的话可以返回错误值。
       },
       update(content, status){
           let obj = {

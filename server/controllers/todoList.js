@@ -17,7 +17,7 @@ async function getTen(name) {
   if(result instanceof Error){
     return {
       status: 0,
-      info: '服务器错误'
+      info: '数据库错误'
     }
   }else{
     return result;

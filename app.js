@@ -50,7 +50,7 @@ app.use(api.routes());
 
 // app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
 
-app.use(server(path.resolve('dist')))
+// app.use(server(path.resolve('dist')))
 
 
 
