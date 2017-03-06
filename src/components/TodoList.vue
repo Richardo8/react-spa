@@ -9,7 +9,7 @@
         <el-tab-pane label="待办事项" name="first">
           <el-col :xs="24">
             <template v-if="!Done"> <!--v-if和v-for不能同时在一个元素内使用，因为Vue总会先执行v-for-->
-              <template v-for="(item, index) in list">
+              <template v-for="(item, index) in unfinishedList">
                 <div class="todo-list" v-if="item.status == false">
                   <span class="item">
                     {{ index + 1 }}. {{ item.content }}
@@ -31,7 +31,7 @@
         </el-tab-pane>
         <el-tab-pane label="已完成事项" name="second">
           <template v-if="count > 0">
-            <template v-for="(item, index) in list">
+            <template v-for="(item, index) in finishedList">
               <div class="todo-list" v-if="item.status == true">
                 <span class="item finished">
                   {{ index + 1 }}. {{ item.content }}
@@ -76,19 +76,20 @@
         name: '',
         todos: '',
         activeName: 'first',
-        list: [],
+        unfinishedList: [],
+        finishedList: [],
         count: 0
       }
     },
     computed: { // 计算属性用于计算是否已经完成了所有任务
       Done(){
         let count = 0;
-        let length = this.list.length;
-        for(let i in this.list){
-          this.list[i].status == true ? count += 1 : '';
+        let length = this.unfinishedList.length;
+        for(let i in this.finishedList){
+          this.finishedList[i].status == true ? count += 1 : '';
         }
         this.count = count;
-        if(count == length || length == 0){
+        if(length == 0){
           return true
         }else{
           return false
@@ -170,19 +171,19 @@
           }
 
       },
-      async getTodoList(){
-          this.$http.get('/todolist/' + this.name)
-            .then((res) => {
-              if(res.status == 200){
-                  this.list = this.list.concat(res.data);
-              } else{
-                  this.$message.error('获取失败')
-              }
-            }, (err) => {
-              this.$message.error('获取失败');
-              console.log(err);
-            })
-      },
+//      async getTodoList(){
+//          this.$http.get('/todolist/' + this.name)
+//            .then((res) => {
+//              if(res.status == 200){
+//                  this.list = this.list.concat(res.data);
+//              } else{
+//                  this.$message.error('获取失败')
+//              }
+//            }, (err) => {
+//              this.$message.error('获取失败');
+//              console.log(err);
+//            })
+//      },
       async getTenUnfinishedTodoList(){
 //          this.$http.get('/todolist/ten/' + this.name)
 //            .then((res) => {
@@ -203,7 +204,7 @@
           if(eventData.status == '0'){
             this.$message.error(eventData.info);
           }else{
-              this.list = this.list.concat(eventData);
+              this.unfinishedList = eventData;
           }
         } catch(err) {
           console.log("Oops, error", err);
@@ -223,7 +224,7 @@
           if(eventData.status == '0'){
             this.$message.error(eventData.info);
           }else{
-            this.list = this.list.concat(eventData);
+            this.finishedList = eventData;
           }
         } catch(err) {
           console.log("Oops, error", err);
