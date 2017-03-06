@@ -320,6 +320,7 @@
   }
 </script>
 
+
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .el-input
     margin 20px auto
