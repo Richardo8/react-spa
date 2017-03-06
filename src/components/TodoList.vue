@@ -21,7 +21,10 @@
                 </div>
               </template>
               <div class="block">
-                <el-pagination layout="prev, pager, next" :total="500"></el-pagination>
+                <el-pagination
+                  @current-change="handleCurrentChange"
+                  layout="prev, pager, next"
+                  :total="500"></el-pagination>
               </div>
             </template>
             <div v-else-if="Done">
@@ -78,7 +81,8 @@
         activeName: 'first',
         unfinishedList: [],
         finishedList: [],
-        count: 0
+        count: 0,
+        page: 1
       }
     },
     computed: { // 计算属性用于计算是否已经完成了所有任务
@@ -199,7 +203,7 @@
 //            })
         let name = this.name;
         try {
-          let response = await fetch('/todolist/ten/unfinished/' + name);
+          let response = await fetch('/todolist/ten/unfinished/' + name + '/' + this.page);
           let eventData = await response.json();
           if(eventData.status == '0'){
             this.$message.error(eventData.info);
@@ -266,6 +270,11 @@
             }, (err) => {
               this.$message.error(err);
             })
+      },
+      handleCurrentChange(val){
+          console.log('当前页面是' + val);
+          this.page = val;
+          this.getTenUnfinishedTodoList();
       }
     }
   }
