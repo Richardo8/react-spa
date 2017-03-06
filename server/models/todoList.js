@@ -27,6 +27,16 @@ class Todo{
     }
   }
 
+  static async getTenFinishedTodoListByName(name){
+    try{
+      return await todoListModel.find({ 'user_name': name, 'status': 1}).sort({'_id': 1}).limit(10);//sort进行排序，通过‘_id’进行排序，limit查询前几条数据，skip从第n条数据开始查询
+      // return new Error('123');//进行错误测试，当数据库发生错误时，返回值要说明
+    }catch(err) {
+      return err;
+    }
+  }
+
+
   static async createTodoList(data){
     try{
       let saveData = {

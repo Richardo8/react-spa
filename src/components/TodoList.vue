@@ -65,6 +65,8 @@
           this.name = ''
         }
         this.getTenUnfinishedTodoList();
+        this.getTenFinishedTodoList();
+        console.log(this.list)
       })
 
     },
@@ -157,7 +159,7 @@
             let result = await saveData.json()
             if(result.status == '1'){
                 this.$message.success(result.info)
-                this.getTodoList();
+                this.getTenUnfinishedTodoList();
             }else{
                 this.$message.error(result.info)
             }
@@ -172,7 +174,7 @@
           this.$http.get('/todolist/' + this.name)
             .then((res) => {
               if(res.status == 200){
-                  this.list = res.data
+                  this.list = this.list.concat(res.data);
               } else{
                   this.$message.error('获取失败')
               }
@@ -201,7 +203,7 @@
           if(eventData.status == '0'){
             this.$message.error(eventData.info);
           }else{
-            this.list = eventData;
+              this.list = this.list.concat(eventData);
           }
         } catch(err) {
           console.log("Oops, error", err);
@@ -221,7 +223,7 @@
           if(eventData.status == '0'){
             this.$message.error(eventData.info);
           }else{
-            this.list = eventData;
+            this.list = this.list.concat(eventData);
           }
         } catch(err) {
           console.log("Oops, error", err);
@@ -237,7 +239,8 @@
             .then((res) => {
               if(res.status == 200){
                   this.$message.success('更新成功')
-                  this.getTodoList();
+                  this.getTenUnfinishedTodoList();
+                  this.getTenFinishedTodoList();
               }else{
                   this.$message.error('更新失败')
               }
@@ -254,7 +257,8 @@
             .then((res) => {
               if(res.status == 200){
                   this.$message.success('删除成功')
-                  this.getTodoList()
+                  this.getTenUnfinishedTodoList();
+                  this.getTenFinishedTodoList();
               }else{
                   this.$message('删除失败')
               }

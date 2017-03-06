@@ -24,6 +24,18 @@ async function getTenUnfinished(name) {
   }
 }
 
+async function getTenFinished(name) {
+  let result = await TodoList.getTenFinishedTodoListByName(name);
+  if(result instanceof Error){
+    return {
+      status: 0,
+      info: '数据库错误'
+    }
+  }else{
+    return result;
+  }
+}
+
 async function createTodoList(data) {
   let result = await TodoList.createTodoList(data);
   if(result instanceof Error){
@@ -72,6 +84,7 @@ async function removeTodo(content) {
 module.exports = {
   getTodoList,
   getTenUnfinished,
+  getTenFinished,
   createTodoList,
   updateTodoList,
   removeTodo

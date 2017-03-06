@@ -13,6 +13,12 @@ router.get('/todolist/ten/unfinished/:name', async (ctx, next) => {
   await next()
 })
 
+router.get('/todolist/ten/finished/:name', async (ctx, next) => {
+  let name = ctx.params.name;
+  ctx.body = await TodoCont.getTenFinished(name);
+  await next()
+})
+
 router.post('/todolist', async(ctx, next) => {
   ctx.body = await TodoCont.createTodoList(ctx.request.body);
   await next();
