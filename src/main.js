@@ -12,6 +12,7 @@ Vue.use(VueRouter);
 
 import Login from './components/Login'
 import TodoList from './components/TodoList'
+import userEdit from './components/userEdit'
 
 Vue.prototype.$http = Axios;
 
@@ -26,6 +27,10 @@ const router = new VueRouter({
     {
       path: '/todolist',
       component: TodoList
+    },
+    {
+      path: '/edit',
+      component: userEdit
     },
     {
       path: '*',

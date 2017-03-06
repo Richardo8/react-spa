@@ -2,7 +2,7 @@
   <el-row class="content">
     <el-col :xs="{span:20,offset:2}" :sm="{span:8,offset:8}">
       <span>
-        欢迎：{{name}}！你的待办事项是：
+        欢迎：{{name}}<el-button type="primary" icon="edit" size="mini" @click="jumpEdit()"></el-button>！你的待办事项是：
       </span>
       <el-input placeholder="请输入待办事项" v-model="todos" @keyup.enter.native="addTodos"></el-input>
       <el-tabs v-model="activeName">
@@ -60,7 +60,7 @@
   </el-row>
 </template>
 
-<script style="es6">
+<script type="es6">
   import jwt from 'jsonwebtoken'
 
   export default {
@@ -312,6 +312,9 @@
           console.log('当前页面是' + val);
           this.page = val;
           this.getTenUnfinishedTodoList();
+      },
+      jumpEdit(){
+          this.$router.replace('/edit');
       }
     }
   }
