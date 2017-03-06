@@ -12,8 +12,8 @@ async function getTodoList(name) {
   }
 }
 
-async function getTen(name) {
-  let result = await TodoList.getTenTodoListByName(name);
+async function getTenUnfinished(name) {
+  let result = await TodoList.getTenUnfinishedTodoListByName(name);
   if(result instanceof Error){
     return {
       status: 0,
@@ -71,7 +71,7 @@ async function removeTodo(content) {
 
 module.exports = {
   getTodoList,
-  getTen,
+  getTenUnfinished,
   createTodoList,
   updateTodoList,
   removeTodo

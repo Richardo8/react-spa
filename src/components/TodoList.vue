@@ -20,6 +20,9 @@
                   </span>
                 </div>
               </template>
+              <div class="block">
+                <el-pagination layout="prev, pager, next" :total="500"></el-pagination>
+              </div>
             </template>
             <div v-else-if="Done">
               暂无待办事项
@@ -61,7 +64,7 @@
         }else{
           this.name = ''
         }
-        this.getTodoList(this.name);
+        this.getTenUnfinishedTodoList();
       })
 
     },
@@ -178,7 +181,7 @@
               console.log(err);
             })
       },
-      async getTenTodoList(){
+      async getTenUnfinishedTodoList(){
 //          this.$http.get('/todolist/ten/' + this.name)
 //            .then((res) => {
 //              console.log(res)
@@ -193,7 +196,7 @@
 //            })
         let name = this.name;
         try {
-          let response = await fetch('/todolist/ten/' + name);
+          let response = await fetch('/todolist/ten/unfinished/' + name);
           let eventData = await response.json();
           if(eventData.status == '0'){
             this.$message.error(eventData.info);
@@ -209,6 +212,21 @@
         //服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。
         //await response.json()如果返回的对象是reject的话，该方法会被catch，显示错误，如果是resolve则正常显示
         //由于返回的对象是reject就会被catch到错误，所以可以先.json(),然后根据json化后的数据中的参数进行判断，这样可以自定义错误，如果数据库查询出现错误的话可以返回错误值。
+      },
+      async getTenFinishedTodoList(){
+        let name = this.name;
+        try {
+          let response = await fetch('/todolist/ten/finished/' + name);
+          let eventData = await response.json();
+          if(eventData.status == '0'){
+            this.$message.error(eventData.info);
+          }else{
+            this.list = eventData;
+          }
+        } catch(err) {
+          console.log("Oops, error", err);
+          this.$message.error('服务器错误， 错误信息：' + err)
+        }
       },
       update(content, status){
           let obj = {
