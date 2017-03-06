@@ -7,6 +7,18 @@ router.get('/todolist/:name', async (ctx, next) => {
   await next();
 })
 
+router.get('/todolist/unfinished/:name', async (ctx, next) => {
+  let name = ctx.params.name;
+  ctx.body = await TodoCont.getUnfinishedNum(name);
+  await next()
+})
+
+router.get('/todolist/finished/:name', async (ctx, next) => {
+  let name = ctx.params.name;
+  ctx.body = await TodoCont.getFinishedNum(name);
+  await next()
+})
+
 router.get('/todolist/ten/unfinished/:name/:page', async (ctx, next) => {
   let name = ctx.params.name;
   let page = ctx.params.page;

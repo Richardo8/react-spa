@@ -24,7 +24,7 @@
                 <el-pagination
                   @current-change="handleCurrentChange"
                   layout="prev, pager, next"
-                  :total="500"></el-pagination>
+                  :total=unfinishedNum></el-pagination>
               </div>
             </template>
             <div v-else-if="Done">
@@ -44,6 +44,12 @@
                 </span>
               </div>
             </template>
+            <div class="block">
+              <el-pagination
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                :total=finishedNum></el-pagination>
+            </div>
           </template>
           <div v-else>
             暂无已完成事项
@@ -67,9 +73,10 @@
         }else{
           this.name = ''
         }
+        this.getFinishedNum();
+        this.getUnfinishedNum();
         this.getTenUnfinishedTodoList();
         this.getTenFinishedTodoList();
-        console.log(this.list)
       })
 
     },
@@ -82,7 +89,9 @@
         unfinishedList: [],
         finishedList: [],
         count: 0,
-        page: 1
+        page: 1,
+        finishedNum: 0,
+        unfinishedNum: 0
       }
     },
     computed: { // 计算属性用于计算是否已经完成了所有任务
@@ -188,6 +197,34 @@
 //              console.log(err);
 //            })
 //      },
+      async getUnfinishedNum(){
+        try {
+          let response = await fetch('/todolist/unfinished/' + this.name );
+          let eventData = await response.json();
+          if(eventData.status == '0'){
+            this.$message.error(eventData.info);
+          }else{
+            this.unfinishedNum = Math.ceil(eventData/10) * 10
+          }
+        } catch(err) {
+          console.log("Oops, error", err);
+          this.$message.error('服务器错误， 错误信息：' + err)
+        }
+      },
+      async getFinishedNum(){
+        try {
+          let response = await fetch('/todolist/finished/' + this.name );
+          let eventData = await response.json();
+          if(eventData.status == '0'){
+            this.$message.error(eventData.info);
+          }else{
+            this.finishedNum = Math.ceil(eventData/10) *10
+          }
+        } catch(err) {
+          console.log("Oops, error", err);
+          this.$message.error('服务器错误， 错误信息：' + err)
+        }
+      },
       async getTenUnfinishedTodoList(){
 //          this.$http.get('/todolist/ten/' + this.name)
 //            .then((res) => {
