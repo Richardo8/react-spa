@@ -5,8 +5,8 @@ const upload = multer({ dest: 'uploads/'});
 
 
 router.post('/edit/profile', async(ctx, next) => {
-  console.log(ctx)
-  upload.single('avator');
+  console.log(avatar)
+  upload.single('avatar');
   next();
 })
 
