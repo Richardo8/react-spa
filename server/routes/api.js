@@ -54,8 +54,4 @@ router.post('/todolist/remove/', async(ctx, next) => {
   await next();
 })
 
-router.get('/edit/:name', async(ctx, next) => {
-  let name = ctx.params.name;
-})
-
 module.exports = router;

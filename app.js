@@ -13,7 +13,8 @@ app.use(json());
 app.use(logger());
 
 const auth = require('./server/routes/auth.js'),
-  api = require('./server/routes/api.js');
+  api = require('./server/routes/api.js'),
+  upload = require('./server/routes/upload.js');
 
 app.use(async (ctx, next) => {
   let start = new Date;
@@ -46,6 +47,10 @@ app.on('error', function(err, ctx){
 
 app.use(auth.routes());
 app.use(api.routes());
+app.use(upload.routes());
+
+
+// app.use(koa.post('/profile', upload.single('avatar')));
 //jwt({secret: 'united'}),
 
 // app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
