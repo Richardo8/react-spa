@@ -4,10 +4,8 @@ let router = require('koa-router')(),
 const upload = multer({ dest: 'uploads/'});
 
 
-router.post('/edit/profile', async(ctx, next) => {
-  console.log(avatar)
-  upload.single('avatar');
-  next();
+router.post('/edit/profile', upload.single('avatar'), async(ctx, next) => {
+  await next();
 })
 
 module.exports = router;

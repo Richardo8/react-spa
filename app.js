@@ -24,6 +24,9 @@ app.use(async (ctx, next) => {
   // koa2中已经完全使用ctx，即上下文，读取数据从ctx中获取。
 });
 
+app.use(upload.routes());
+
+
 app.use(async (ctx, next) => {
   try {
     await next();
@@ -47,7 +50,6 @@ app.on('error', function(err, ctx){
 
 app.use(auth.routes());
 app.use(api.routes());
-app.use(upload.routes());
 
 
 // app.use(koa.post('/profile', upload.single('avatar')));
