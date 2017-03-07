@@ -5,6 +5,7 @@
         欢迎：{{name}}！请编辑：
       </span>
       <el-upload
+        name="avatar"
         class="avatar-uploader"
         action="/edit/profile"
         :show-file-list="false"
@@ -13,10 +14,6 @@
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-      <form method="post" action="/edit/profile" enctype="multipart/form-data">
-        <input type="file" name="avatar">
-        <input type="submit">
-      </form>
     </el-col>
   </el-row>
 </template>
