@@ -27,7 +27,9 @@ let storage = multer.diskStorage({
   },
   //给上传文件重命名，获取添加后缀名
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    let fileFormat = (file.originalname).split('.');
+    let newFileName = new Buffer(file.fieldname + '-' + Date.now()).toString('base64');
+    cb(null, newFileName+ '.' + fileFormat[fileFormat.length - 1])
   }
 });
 //添加配置文件到muler对象。
