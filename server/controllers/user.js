@@ -45,9 +45,52 @@ async function postUserInfo(data) {
 
 }
 
+async function setAvatarUrl(name, url) {
+  let returnData = await User.setAvatar(name, url);
+  if(returnData){
+    if(returnData instanceof Error){
+      return obj = {
+        status: 0,
+        info: '数据库错误'
+      }
+    }else{
+      return obj = {
+        status: 1,
+        info: '设置成功'
+      }
+    }
+  }else{
+    return {
+      status: 0,
+      info: '未查找到该账号'
+    }
+  }
+}
+
+async function getAvatarUrl(name, url) {
+  let returnData = await User.getAvatar(name, url);
+  if(returnData){
+    if(returnData instanceof Error){
+      return obj = {
+        status: 0,
+        info: '数据库错误'
+      }
+    }else{
+      return returnData
+    }
+  }else{
+    return {
+      status: 0,
+      info: '未查找到该账号'
+    }
+  }
+}
+
 module.exports = {
   getUserInfo,
-  postUserInfo
+  postUserInfo,
+  setAvatarUrl,
+  getAvatarUrl
 }
 
 

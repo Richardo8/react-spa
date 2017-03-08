@@ -30,6 +30,10 @@ controllers文件夹中主要存放实现功能的代码，也就是逻辑层，
 # mongoose注意事项
 类型只有Number，没有Int类型
 
+# 如何查询某一条中的某一个值或某几个值
+
+    userModel.findOne({'name': name}, 'avatarUrl')
+
 ## 一. 名词解释
 
 ### 1.1 名词解释

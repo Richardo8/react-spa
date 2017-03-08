@@ -29,6 +29,7 @@
           }else{
             this.name = ''
           }
+          this.getAvatar();
         })
     },
     data () {
@@ -48,6 +49,7 @@
       },
       handleAvatarSuccess(res, file){
           this.imageUrl = URL.createObjectURL(file.raw);
+          this.setAvatar();
       },
       beforeAvatarUpload(file){
         const isJPG = file.type === 'image/jpeg';
@@ -61,6 +63,35 @@
         }
         console.log(file);
         return isJPG && isLt2M;
+      },
+      async setAvatar(){
+        let objJson = JSON.stringify({
+          name: this.name,
+          url: this.imageUrl
+        })
+        console.log(objJson)
+        let saveData = await fetch('/user/setAvatar', {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: objJson
+        })
+        console.log(saveData);
+      },
+      async getAvatar(){
+          try{
+            let response = await fetch('user/getAvatar/' + this.name, {
+                method: 'GET'
+            } );
+            let eventData = await response.json();
+            console.log(eventData)
+
+          }catch(err){
+            console.log("Oops, error", err);
+            this.$message.error('服务器错误， 错误信息：' + err)
+          }
       }
     }
   }

@@ -3,7 +3,8 @@ let mongoose = require('mongoose');
 
 let userSchema = new mongoose.Schema({
   name: String,
-  password: String
+  password: String,
+  avatarUrl: String
 })
 
 module.exports = userSchema;

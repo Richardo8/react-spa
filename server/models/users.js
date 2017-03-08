@@ -5,9 +5,10 @@ let mongoose = require('mongoose'),
 let userModel = db.model('User', userSchema);
 
 class User {
-  constructor(name, password){
+  constructor(name, password, avatarUrl){
     this.name = name;
     this.password = password;
+    this.avatarUrl = avatarUrl;
   }
 
   speak(){
@@ -56,9 +57,30 @@ class User {
     }
     //如果未查询到结果返回的值是未定义的，此时if（）判断一下就可以了
   }
+
+
+  static async setAvatar(name, url){
+    try{
+      return await userModel.update({'name': name}, {$set: { avatarUrl: url}});
+    }catch(err){
+      console.log('error: ' + err)
+      return err;
+    }
+  }
+
+  static async getAvatar(name){
+    try{
+      return await userModel.findOne({'name': name}, 'avatarUrl');//要只查询某一key，在查询条件后加上参数就可以了
+    }catch(err){
+      console.log('error: ' + err);
+      return err;
+    }
+  }
   /*
   * 类的静态方法只有类可以调用，所以在models中的user.js不需要实例化
   * 以上两种方法均可以使用，第二种写法更简单，但是要注意如上所提*/
 }
+
+
 
 module.exports = User;
