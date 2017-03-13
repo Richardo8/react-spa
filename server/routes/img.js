@@ -1,5 +1,6 @@
 let router = require('koa-router')(),
-  multer = require('koa-multer');
+  multer = require('koa-multer'),
+  fs = require('fs');
 //
 // const upload = multer({
 //   dest: 'uploads/',
@@ -41,6 +42,26 @@ let upload = multer({
 router.post('/edit/profile', upload.single('avatar'), async(ctx, next) => {
   console.log(ctx.req.file);
   ctx.body = ctx.req.file.path;
+  await next();
+})
+
+let readFile = function (url) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(url, function (err, data) {
+      if(err){
+        reject(err)
+      }else{
+        resolve(data)
+      }
+    })
+  })
+}
+
+router.get('/uploads/:url', async(ctx, next) => {
+  let url = 'uploads/' + ctx.params.url;
+  // let url = 'uploads/YXZhdGFyLTE0ODg5NjU0MjUxMDA=.jpg';
+  ctx.response.type = "image/jpeg"
+  ctx.response.body = await readFile(url);
   await next();
 })
 

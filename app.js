@@ -8,13 +8,19 @@ const App = require('koa'),
   server = require('koa-static'),
   historyApiFallBack = require('koa-history-api-fallback');
 
-app.use(require('koa-bodyparser')());
-app.use(json());
-app.use(logger());
+app.use(async (ctx, next) => {
+  app.use(require('koa-bodyparser')());
+  app.use(json());
+  app.use(logger());
+  await next()
+});
+
+// app.use(json());
+// app.use(logger());
 
 const auth = require('./server/routes/auth.js'),
   api = require('./server/routes/api.js'),
-  upload = require('./server/routes/upload.js');
+  upload = require('./server/routes/img.js');
 
 app.use(async (ctx, next) => {
   let start = new Date;
@@ -23,8 +29,6 @@ app.use(async (ctx, next) => {
   console.log('%s %s - %s', ctx.req.method, ctx.req.url, ms); // 显示执行的时间
   // koa2中已经完全使用ctx，即上下文，读取数据从ctx中获取。
 });
-
-app.use(upload.routes());
 
 
 app.use(async (ctx, next) => {
@@ -48,16 +52,24 @@ app.on('error', function(err, ctx){
   console.log('server error', err);
 });
 
-app.use(auth.routes());
-app.use(api.routes());
+app.use(async (ctx, next) => {
+  app.use(upload.routes());
+  app.use(auth.routes());
+  app.use(api.routes())
+  await next();
 
-
-// app.use(koa.post('/profile', upload.single('avatar')));
+})
+// app.use();
+// app.use();
 //jwt({secret: 'united'}),
 
 // app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
 
 // app.use(server(path.resolve('dist')))
+app.use(async (ctx, next) => {
+  app.use(server(path.resolve('uploads')))
+  await next();
+})
 
 
 

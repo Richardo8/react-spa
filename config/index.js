@@ -39,6 +39,10 @@ module.exports = {
       '/edit': {
         target: 'http://localhost:8889',
         changeOrigin: true
+      },
+      '/uploads': {
+        target: 'http://localhost:8889',
+        changeOrigin: true
       }
     },
     // 在此添加代理，实现跨域请求
