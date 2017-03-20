@@ -29,13 +29,13 @@
           }else{
             this.name = ''
           }
-//          this.getAvatar();
+          this.getAvatar();
         })
     },
     data () {
       return {
         name: '',
-        imageUrl: '../uploads/YXZhdGFyLTE0ODg5NjU0MjUxMDA=.jpg'
+        imageUrl: ''
       }
     },
     methods: {
