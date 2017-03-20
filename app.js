@@ -7,13 +7,15 @@ const App = require('koa'),
   path = require('path'),
   server = require('koa-static'),
   historyApiFallBack = require('koa-history-api-fallback');
-
-app.use(async (ctx, next) => {
-  app.use(require('koa-bodyparser')());
-  app.use(json());
-  app.use(logger());
-  await next()
-});
+//
+// app.use(async (ctx, next) => {
+//
+//   await next()
+// });
+app.use(require('koa-bodyparser')());
+app.use(json());
+app.use(logger());
+//为何把这些放在外边就不会报警告？？？
 
 // app.use(json());
 // app.use(logger());
@@ -52,13 +54,15 @@ app.on('error', function(err, ctx){
   console.log('server error', err);
 });
 
-app.use(async (ctx, next) => {
-  app.use(upload.routes());
-  app.use(auth.routes());
-  app.use(api.routes())
-  await next();
+// app.use(async (ctx, next) => {
+//
+//   await next();
+//
+// })
 
-})
+app.use(upload.routes());
+app.use(auth.routes());
+app.use(api.routes())
 // app.use();
 // app.use();
 //jwt({secret: 'united'}),
