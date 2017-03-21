@@ -40,7 +40,6 @@ let upload = multer({
 
 
 router.post('/edit/profile', upload.single('avatar'), async(ctx, next) => {
-  console.log(ctx.req.file);
   ctx.body = ctx.req.file.path;
   await next();
 })
