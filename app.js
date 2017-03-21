@@ -7,9 +7,17 @@ const App = require('koa'),
   path = require('path'),
   server = require('koa-static'),
   historyApiFallBack = require('koa-history-api-fallback');
-//
+
 // app.use(async (ctx, next) => {
-//
+//   require('koa-bodyparser')();
+//   await next()
+// });
+// app.use(async (ctx, next) => {
+//   json();
+//   await next()
+// });
+// app.use(async (ctx, next) => {
+//   logger();
 //   await next()
 // });
 app.use(require('koa-bodyparser')());
@@ -55,16 +63,23 @@ app.on('error', function(err, ctx){
 });
 
 // app.use(async (ctx, next) => {
-//
+//   upload.routes();
 //   await next();
-//
 // })
-
+//
+// app.use(async (ctx, next) => {
+//   auth.routes();
+//   await next();
+// })
+//
+// app.use(async (ctx, next) => {
+//   api.routes();
+//   await next();
+// })
 app.use(upload.routes());
 app.use(auth.routes());
 app.use(api.routes())
-// app.use();
-// app.use();
+
 //jwt({secret: 'united'}),
 
 // app.use(historyApiFallBack());// 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
