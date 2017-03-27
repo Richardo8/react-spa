@@ -17,7 +17,7 @@
     </el-col>
   </el-row>
 </template>
-<script style="es6" >
+<script>
   import jwt from 'jsonwebtoken'
 
   export default{
