@@ -21,6 +21,8 @@ let router = require('koa-router')(),
 // let upload = multer({ storage: storage })
 
 
+
+
 let storage = multer.diskStorage({
   //设置上传后文件路径，uploads文件夹会自动创建。
   destination: function (req, file, cb) {
